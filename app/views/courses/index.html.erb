@@ -1,0 +1,20 @@
+<% content_for :title, "Courses" %>
+
+<div class="w-full">
+  <% if notice.present? %>
+    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-md inline-block" id="notice"><%= notice %></p>
+  <% end %>
+
+  <div class="flex justify-between items-center">
+    <h1 class="font-bold text-4xl">Courses</h1>
+    <%= link_to "New course", new_course_path, class: "rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white block font-medium" %>
+  </div>
+
+  <div id="courses" class="min-w-full divide-y divide-gray-200 space-y-5 flex flex-wrap justify-center gap-14 pb-5">
+    <% if @courses.any? %>
+      <%= render @courses, { user_started_courses: @user_started_courses, user_course_progresses: @user_course_progresses, user_unlocked_courses: @user_unlocked_courses } %>
+    <% else %>
+      <p class="text-center my-10">No courses found.</p>
+    <% end %>
+  </div>
+</div>

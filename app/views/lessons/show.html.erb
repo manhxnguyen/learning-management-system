@@ -1,0 +1,29 @@
+<% content_for :title, "Showing lesson" %>
+
+<div class="flex flex-col lg:flex-row-reverse w-full justify-start lg:justify-end pb-6">
+  <div>
+    <div>
+      <% if notice.present? %>
+        <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-md inline-block" id="notice"><%= notice %></p>
+      <% end %>
+    </div>
+
+    <%= (@lesson.video.present?) ? (video_tag @lesson.video, autoplay: false, controls: true, class: "rounded") : 'No video available' %>
+
+    <div class="my-2 border p-4 rounded">
+      <h1 class="text-2xl font-semibold"><%= @lesson.title %></h1>
+      <p class="text-gray-700"><%= @lesson.description %></p>
+    </div>
+
+    <div class="my-6 lg:mb-0">
+      <%= link_to 'Mark as complete', course_lesson_path(@course, @lesson), data: { 'turbo-method' => :put }, class: "bg-green-500 rounded hove:bg-green-600 text-white-50 px-4 py-2" %>
+    </div>
+  </div>
+
+  <div class="sidebar_container lg:min-w-60 lg:mr-4 lg:overflow-y-scroll">
+    <%= render "sidebar", course: @course, completed_lessons: @completed_lessons, paid_for_course: @paid_for_course %>
+  </div>
+  <%#= link_to "Edit this lesson", edit_lesson_path(@lesson), class: "w-full sm:w-auto text-center rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
+  <%#= link_to "Back to lessons", lessons_path, class: "w-full sm:w-auto text-center mt-2 sm:mt-0 sm:ml-2 rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
+  <%#= button_to "Destroy this lesson", @lesson, method: :delete, form_class: "sm:inline-block mt-2 sm:mt-0 sm:ml-2", class: "w-full rounded-md px-3.5 py-2.5 text-white bg-red-600 hover:bg-red-500 font-medium cursor-pointer", data: { turbo_confirm: "Are you sure?" } %>
+</div>
