@@ -20,6 +20,13 @@ Rails.application.routes.draw do
     root "admin#index", as: :admin_root
   end
 
+  namespace :admin do
+    resources :courses do
+      resources :lessons
+    end
+    resources :users
+  end
+
   authenticated :user do
     root "courses#index", as: :user_root
   end
@@ -29,6 +36,8 @@ Rails.application.routes.draw do
   post "/webhook" => "webhooks#stripe"
 
   get "admin", to: "admin#index"
+
+  patch "/admin/courses/:course_id/lessons/:id/move" => "admin/lessons#move"
 
   root "courses#index"
 end

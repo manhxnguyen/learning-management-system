@@ -1,6 +1,7 @@
 class LessonsController < ApplicationController
   before_action :set_lesson, only: %i[ show update ]
   before_action :set_course
+  before_action :check_paid
 
   # GET /lessons or /lessons.json
   def index

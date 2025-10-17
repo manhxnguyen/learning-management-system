@@ -9,7 +9,7 @@
       <div>
         <div class="flex items-center justify-between font-bold text-xl mb-2">
           <%= course.title %>
-          <% if user_unlocked_courses&.include? course.id %>
+          <% if user_unlocked_courses&.include?(course.id) %>
             <span class="ml-2 text-white-50 text-xs px-2 py-1 rounded bg-green-500">Unlocked</span>
           <% end %>
         </div>
