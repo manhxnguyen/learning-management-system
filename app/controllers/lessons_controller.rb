@@ -1,12 +1,12 @@
 class LessonsController < ApplicationController
   before_action :set_lesson, only: %i[ show update ]
   before_action :set_course
-  before_action :check_paid
+  before_action :check_paid, only: %i[ show update ]
 
   # GET /lessons or /lessons.json
-  def index
-    @lessons = Lesson.all
-  end
+  # def index
+  #   @lessons = Lesson.all
+  # end
 
   # GET /lessons/1 or /lessons/1.json
   def show
@@ -16,28 +16,28 @@ class LessonsController < ApplicationController
   end
 
   # GET /lessons/new
-  def new
-    @lesson = Lesson.new
-  end
+  # def new
+  #   @lesson = Lesson.new
+  # end
 
   # GET /lessons/1/edit
-  def edit
-  end
+  # def edit
+  # end
 
   # POST /lessons or /lessons.json
-  def create
-    @lesson = Lesson.new(lesson_params)
+  # def create
+  #   @lesson = Lesson.new(lesson_params)
 
-    respond_to do |format|
-      if @lesson.save
-        format.html { redirect_to @lesson, notice: "Lesson was successfully created." }
-        format.json { render :show, status: :created, location: @lesson }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @lesson.errors, status: :unprocessable_entity }
-      end
-    end
-  end
+  #   respond_to do |format|
+  #     if @lesson.save
+  #       format.html { redirect_to @lesson, notice: "Lesson was successfully created." }
+  #       format.json { render :show, status: :created, location: @lesson }
+  #     else
+  #       format.html { render :new, status: :unprocessable_entity }
+  #       format.json { render json: @lesson.errors, status: :unprocessable_entity }
+  #     end
+  #   end
+  # end
 
   # PATCH/PUT /lessons/1 or /lessons/1.json
   def update
@@ -62,14 +62,14 @@ class LessonsController < ApplicationController
   end
 
   # DELETE /lessons/1 or /lessons/1.json
-  def destroy
-    @lesson.destroy!
+  # def destroy
+  #   @lesson.destroy!
 
-    respond_to do |format|
-      format.html { redirect_to lessons_path, notice: "Lesson was successfully destroyed.", status: :see_other }
-      format.json { head :no_content }
-    end
-  end
+  #   respond_to do |format|
+  #     format.html { redirect_to lessons_path, notice: "Lesson was successfully destroyed.", status: :see_other }
+  #     format.json { head :no_content }
+  #   end
+  # end
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -82,9 +82,9 @@ class LessonsController < ApplicationController
     end
 
     # Only allow a list of trusted parameters through.
-    def lesson_params
-      params.expect(lesson: [ :title, :description, :paid, :course_id ])
-    end
+    # def lesson_params
+    #   params.expect(lesson: [ :title, :description, :paid, :course_id ])
+    # end
 
     def check_paid
       if @lesson.paid && !current_user.course_users.where(course_id: params[:course_id]).exists?
