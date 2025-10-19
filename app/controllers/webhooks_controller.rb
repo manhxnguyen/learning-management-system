@@ -1,16 +1,14 @@
 class WebhooksController < ApplicationController
   skip_forgery_protection
+  before_action :set_stripe_api_key
 
   def stripe
-    stripe_secret_key = Rails.application.credentials.dig(:stripe, :secret_key)
-    Stripe.api_key = stripe_secret_key
     payload = request.body.read
     sig_header = request.env["HTTP_STRIPE_SIGNATURE"]
-    endpoint_secret = Rails.application.credentials.dig(:stripe, :webhook_secret)
     event = nil
 
     begin
-      event = Stripe::Webhook.construct_event(payload, sig_header, endpoint_secret)
+      event = Stripe::Webhook.construct_event(payload, sig_header, @endpoint_secret)
     rescue JSON::ParserError => e
       status 400
       return
@@ -42,5 +40,14 @@ class WebhooksController < ApplicationController
     end
 
     render json: { message: "success" }
+  end
+
+  private
+
+  def set_stripe_api_key
+    stripe_config = Rails.env.development? ? :stripe_dev : :stripe_production
+    @stripe_secret_key = Rails.application.credentials.dig(stripe_config, :secret_key)
+    @endpoint_secret = Rails.application.credentials.dig(stripe_config, :webhook_secret)
+    Stripe.api_key = @stripe_secret_key
   end
 end

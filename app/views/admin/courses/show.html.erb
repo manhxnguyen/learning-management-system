@@ -4,7 +4,7 @@
   <%= render @admin_course %>
 
   <div class="mt-4 flex gap-4">
-    <%= link_to "Back to courses", admin_courses_path %> |
-    <%= button_to "Destroy this course", [:admin, @admin_course], method: :delete, data: {'turbo_confirm': "Are you sure?"} %>
+    <%= link_to "Back to courses", admin_courses_path, class: "bg-blue-500 hover:bg-blue-600 text-white-50 rounded cursor-pointer px-4 py-2" %>
+    <%= button_to "Destroy this course", [:admin, @admin_course], method: :delete, data: {'turbo_confirm': "Are you sure?"}, class: "bg-red-500 hover:bg-red-600 text-white-50 rounded cursor-pointer px-4 py-2" %>
   </div>
 </div>
