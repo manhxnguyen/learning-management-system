@@ -70,10 +70,10 @@ Rails.application.configure do
   # }
 
   config.action_mailer.smtp_settings = {
-    user_name: Rails.application.credentials.dig(:render, :smtp_username),
-    password: Rails.application.credentials.dig(:render, :smtp_password),
     address: "smtp.resend.com",
     port: 587,
+    user_name: Rails.application.credentials.dig(:resend, :smtp_username),
+    password: Rails.application.credentials.dig(:resend, :smtp_password),
     authentication: :plain,
     enable_starttls_auto: true
   }
